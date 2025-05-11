@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import * as Yup from "yup";
 import "yup-phone";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 const phoneRegExp = /^(?:\+38)?0\d{9}$/;
 
@@ -24,14 +24,7 @@ export default function ContactForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    console.log("handleSubmit", values);
-    dispatch(
-      addContact({
-        name: values.name,
-        number: values.number,
-        id: nanoid(),
-      })
-    );
+    dispatch(addContact(values));
     actions.resetForm();
   };
   return (
