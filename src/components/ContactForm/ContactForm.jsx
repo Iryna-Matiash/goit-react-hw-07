@@ -1,23 +1,22 @@
-import css from "./ContactForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { nanoid } from "nanoid";
-import * as Yup from "yup";
-import "yup-phone";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
+import css from './ContactForm.module.css';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import 'yup-phone';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsOps';
 
 const phoneRegExp = /^(?:\+38)?0\d{9}$/;
 
 const UserSchema = Yup.object().shape({
   name: Yup.string()
-    .min(3, "Must be min 3 chars")
-    .max(50, "Must be max 50 chars")
-    .required("This field is required"),
+    .min(3, 'Must be min 3 chars')
+    .max(50, 'Must be max 50 chars')
+    .required('This field is required'),
   number: Yup.string()
-    .min(3, "Must be min 3 chars")
-    .max(50, "Must be max 50 chars")
-    .matches(phoneRegExp, "İnvalid phone number format")
-    .required("This field is required"),
+    .min(3, 'Must be min 3 chars')
+    .max(50, 'Must be max 50 chars')
+    .matches(phoneRegExp, 'Invalid phone number format')
+    .required('This field is required'),
 });
 
 export default function ContactForm() {
@@ -27,13 +26,10 @@ export default function ContactForm() {
     dispatch(addContact(values));
     actions.resetForm();
   };
+
   return (
     <Formik
-      initialValues={{
-        name: "",
-        number: "",
-        id: nanoid(),
-      }}
+      initialValues={{ name: '', number: '' }}
       onSubmit={handleSubmit}
       validationSchema={UserSchema}
     >
@@ -55,3 +51,4 @@ export default function ContactForm() {
     </Formik>
   );
 }
+
